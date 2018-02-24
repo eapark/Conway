@@ -21,8 +21,8 @@ public class LifeGame : MonoBehaviour {
 			for (int j = 0; j < Y; j++) {
 				for (int k = 0; k < Z; k++) {
 					GameObject newLife = Instantiate (lifePrefab,
-						                     Vector3.zero,
-						                     Quaternion.identity) as GameObject;
+						Vector3.zero,
+						Quaternion.identity) as GameObject;
 					lifeBoard [i, j, k] = newLife;
 					newLife.GetComponent<Life> ().Initialize (i, j, k, this);
 
