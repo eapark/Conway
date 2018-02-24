@@ -42,7 +42,7 @@ public class Life : MonoBehaviour {
 
 	private int ReturnNumNeighbor() {
 		LifeGame game = lifeGame.GetComponent<LifeGame> ();
-		GameObject[,] lifeBoard = game.lifeBoard;
+		Life[,] lifeBoard = game.lifeBoard;
 		int gameX = game.X;
 		int gameY = game.Y;
 		int numLiveNeighbor = 0;
@@ -62,7 +62,7 @@ public class Life : MonoBehaviour {
 				if (i == 0 && j == 0) {
 					continue;
 				}
-				Life neighbor = lifeBoard [x + i, y + j].GetComponent<Life> ();
+				Life neighbor = lifeBoard [x + i, y + j];
 				numLiveNeighbor += (neighbor.currentState == States.Alive) ? 1 : 0;
 			}
 		}

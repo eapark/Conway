@@ -20,10 +20,24 @@ public class LifeGamePresets {
 		int xHalf = x / 2;
 		int yHalf = y / 2;
 
-		blinker = new xy[3] {new xy(xHalf, yHalf), new xy(xHalf, yHalf-1), new xy(xHalf, yHalf+1)};
-		block = new xy[4] {new xy(xHalf, yHalf), new xy(xHalf, yHalf+1), new xy(xHalf+1, yHalf), new xy(xHalf+1, yHalf+1)};
+		if (x >= 3 && y >= 3) {
+			blinker = new xy[3] { new xy (xHalf, yHalf), new xy (xHalf, yHalf - 1), new xy (xHalf, yHalf + 1) };
+		} else {
+			blinker = new xy[0];
+		}
 
-		int randomSize = Random.Range (1, 21);
+		if (x >= 2 && y >= 2) {
+			block = new xy[4] {
+				new xy (xHalf, yHalf),
+				new xy (xHalf, yHalf + 1),
+				new xy (xHalf + 1, yHalf),
+				new xy (xHalf + 1, yHalf + 1)
+			};
+		} else {
+			block = new xy[0];
+		}
+
+		int randomSize = Random.Range (0, x*y+1);
 		random = new xy[randomSize];
 		for (int i = 0; i < randomSize; i++) {
 			int randomX = Random.Range (0, x);

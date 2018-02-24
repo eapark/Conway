@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LifeGame : MonoBehaviour {
-	[HideInInspector] public GameObject[,,] lifeBoard;
+	[HideInInspector] public Life[,,] lifeBoard;
 	private Object lifePrefab;
 	public int X = 10;
 	public int Y = 10;
@@ -14,8 +14,14 @@ public class LifeGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		lifeBoard = new GameObject[X, Y, Z];
+		lifeBoard = new Life[X, Y, Z];
 		lifePrefab = Resources.Load ("Prefab/LifeCube");
+
+		// Prevent XYZ having invalid number (ie. less than 0)
+		// Set default to be 1
+		X = (X < 0) ? 1 : X;
+		Y = (Y < 0) ? 1 : Y;
+		Z = (Z < 0) ? 1 : Z;
 
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
@@ -23,8 +29,10 @@ public class LifeGame : MonoBehaviour {
 					GameObject newLife = Instantiate (lifePrefab,
 						Vector3.zero,
 						Quaternion.identity) as GameObject;
-					lifeBoard [i, j, k] = newLife;
-					newLife.GetComponent<Life> ().Initialize (i, j, k, this);
+
+					Life lifeComponent = newLife.GetComponent<Life> ();
+					lifeBoard [i, j, k] = lifeComponent;
+					lifeComponent.Initialize (i, j, k, this);
 
 					// Reposition newLife
 					Vector3 currentSize = transform.localScale;
@@ -38,7 +46,7 @@ public class LifeGame : MonoBehaviour {
 		xyz[] Preset = lgp.blinker;
 
 		foreach (xyz coord in Preset) {
-			lifeBoard [coord.x, coord.y, coord.z].GetComponent<Life> ().currentState = States.Alive;
+			lifeBoard [coord.x, coord.y, coord.z].currentState = States.Alive;
 		}
 
 		StartCoroutine ("StartGame");
@@ -59,7 +67,7 @@ public class LifeGame : MonoBehaviour {
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
 				for (int k = 0; k < Z; k++) {
-					lifeBoard [i, j, k].GetComponent<Life> ().UpdateState ();
+					lifeBoard [i, j, k].UpdateState ();
 				}
 			}
 		}
@@ -69,7 +77,7 @@ public class LifeGame : MonoBehaviour {
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
 				for (int k = 0; k < Z; k++) {
-					lifeBoard [i, j, k].GetComponent<Life> ().ApplyStateChange ();
+					lifeBoard [i, j, k].ApplyStateChange ();
 				}
 			}
 		}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LifeGame : MonoBehaviour {
-	[HideInInspector] public GameObject[,] lifeBoard;
+	[HideInInspector] public Life[,] lifeBoard;
 	private Object lifePrefab;
 	public int X = 10;
 	public int Y = 10;
@@ -13,7 +13,7 @@ public class LifeGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		lifeBoard = new GameObject[X, Y];
+		lifeBoard = new Life[X, Y];
 		lifePrefab = Resources.Load ("Prefab/LifePrefab");
 
 		for (int i = 0; i < X; i++) {
@@ -21,8 +21,10 @@ public class LifeGame : MonoBehaviour {
 				GameObject newLife = Instantiate(lifePrefab,
 					Camera.main.ScreenToWorldPoint(Vector3.zero),
 					Quaternion.identity) as GameObject;
-				lifeBoard [i, j] = newLife;
-				newLife.GetComponent<Life> ().Initialize (i, j, this);
+
+				Life lifeComponent = newLife.GetComponent<Life> ();
+				lifeBoard [i, j] = lifeComponent;
+				lifeComponent.Initialize (i, j, this);
 
 				// Reposition newLife
 				SpriteRenderer lifeSprite = newLife.GetComponent<SpriteRenderer> ();
@@ -36,7 +38,8 @@ public class LifeGame : MonoBehaviour {
 		lgp = new LifeGamePresets(X, Y);
 		xy[] Preset = lgp.blinker;
 		foreach (xy coord in Preset) {
-			lifeBoard [coord.x, coord.y].GetComponent<Life> ().currentState = States.Alive;
+			Debug.Log (coord.x+" "+coord.y);
+			lifeBoard [coord.x, coord.y].currentState = States.Alive;
 		}
 
 		StartCoroutine ("StartGame");
@@ -56,7 +59,7 @@ public class LifeGame : MonoBehaviour {
 	void UpdateLives() {
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
-				lifeBoard [i, j].GetComponent<Life> ().UpdateState ();
+				lifeBoard [i, j].UpdateState ();
 			}
 		}
 	}
@@ -64,7 +67,7 @@ public class LifeGame : MonoBehaviour {
 	void ApplyLivesUpdate() {
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
-				lifeBoard [i, j].GetComponent<Life> ().ApplyStateChange ();
+				lifeBoard [i, j].ApplyStateChange ();
 			}
 		}
 	}

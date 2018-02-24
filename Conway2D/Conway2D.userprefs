@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/LifeGame.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/LifeGamePresets.cs">
     <Files>
-      <File FileName="Assets/Script/LifeGamePresets.cs" Line="31" Column="40" />
-      <File FileName="Assets/Script/LifeGame.cs" Line="52" Column="38" />
-      <File FileName="Assets/Script/Life.cs" Line="29" Column="3" />
+      <File FileName="Assets/Script/Life.cs" Line="35" Column="5" />
+      <File FileName="Assets/Script/LifeGame.cs" Line="41" Column="34" />
+      <File FileName="Assets/Script/LifeGamePresets.cs" Line="40" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
